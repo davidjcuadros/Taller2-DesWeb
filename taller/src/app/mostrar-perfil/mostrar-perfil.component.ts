@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { User } from '../models/User';
+
 
 @Component({
   selector: 'app-mostrar-perfil',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./mostrar-perfil.component.css']
 })
 export class MostrarPerfilComponent {
-
+  @Input() usuario: User | null = null;
+  @Output() verPosts = new EventEmitter<number>();
+  mostrarPosts = false;
+  
+  verPostsUsuario() {
+    if (this.usuario) {
+      this.mostrarPosts = true;
+      this.verPosts.emit(this.usuario.id);
+    }
+  }
 }

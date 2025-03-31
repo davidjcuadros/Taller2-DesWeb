@@ -1,1 +1,10 @@
-<p>mostrar-perfil works!</p>
+<div class="usuario-info">
+    <img [src]="usuario?.image" alt="Foto de {{usuario?.firstName}}" class="usuario-imagen">
+    <h2>Información del Usuario</h2>
+    <p>Nombre: {{usuario?.firstName}} {{usuario?.lastName}}</p>
+    <p>Username: {{usuario?.username}}</p>
+    <p>Edad: {{usuario?.age}}</p>
+    
+    <button (click)="verPostsUsuario()" class="btn-ver-posts">Ver Posts</button>
+    <app-mostrar-posts *ngIf="mostrarPosts" [userId]="usuario?.id"></app-mostrar-posts>
+  </div>

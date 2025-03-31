@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './models/User';
@@ -11,18 +10,30 @@ import { User } from './models/User';
 })
 export class AppComponent {
   title = 'Taller';
-  ROOT_URL ="https://dummyjson.com/";
+  ROOT_URL= "https://dummyjson.com";
 
-  username:string = "";
+  txtUser:string = "";
   usuario: User | null = null;
 
   constructor(private http:HttpClient){}
 
-  user$: Observable<any> = new Observable();
+  //user$: Observable<any> = new Observable();
   buscarUsuario(){
+
+    /**
     this.user$ = this.http.get(`${this.ROOT_URL}users/1`);
     this.user$.subscribe(userInfo => {
       this.usuario = userInfo;
     });
+    */
+    this.http.get(`${this.ROOT_URL}/users/filter?key=username&value=${this.txtUser}`).subscribe({
+      next: (response: any) => {
+        if(response.users && response.users.length > 0){
+          this.usuario = response.users[0];
+        } else {
+          this.usuario = null;
+        }
+      }
+  })
   }
 }

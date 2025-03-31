@@ -1,1 +1,37 @@
-<p>mostrar-posts works!</p>
+<!-- mirar-posts.component.html -->
+<div class="posts-container" *ngIf="postsConComentarios.length > 0">
+    <h2>Posts del Usuario</h2>
+    
+    <div class="post-card" *ngFor="let item of postsConComentarios">
+      <div class="post">
+        <h3>{{ item.post.title }}</h3>
+        <p>{{ item.post.body }}</p>
+        <div class="post-stats">
+          <span>👍 {{ item.post.reactions.likes }}</span>
+          <span>👎 {{ item.post.reactions.dislikes }}</span>
+          <span>👁️ {{ item.post.views }}</span>
+        </div>
+      </div>
+      
+      <div class="comentarios">
+        <h4>Comentarios ({{ item.comentarios.length }})</h4>
+        <div class="comentario" *ngFor="let comentario of item.comentarios">
+          <div class="comentario-header">
+            <strong>{{ comentario.user.fullName }}</strong> (@{{ comentario.user.username }})
+          </div>
+          <p>{{ comentario.body }}</p>
+          <div class="comentario-stats">
+            <span>❤️ {{ comentario.likes }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="postsConComentarios.length === 0 && userId">
+    <p>Cargando posts...</p>
+  </div>
+  
+  <div *ngIf="!userId">
+    <p>Selecciona un usuario para ver sus posts</p>
+  </div>

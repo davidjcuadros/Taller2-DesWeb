@@ -2,7 +2,8 @@
 <div>
   <form #form="ngForm" (ngSubmit)="buscarUsuario()">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" [(ngModel)]="username" name="username"required>
+    <input type="text" name="username" [(ngModel)]="txtUser">
     <button type="submit">Buscar</button>
   </form>
+  <app-mostrar-perfil [usuario]="usuario" *ngIf="usuario"></app-mostrar-perfil>
 </div>

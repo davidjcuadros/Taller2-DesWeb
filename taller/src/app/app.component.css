@@ -195,3 +195,12 @@ app-mostrar-perfil p {
         padding: 20px;
     }
 }
+
+
+.mensaje-error {
+    color: #d32f2f;
+    background-color: #fde0e0;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }

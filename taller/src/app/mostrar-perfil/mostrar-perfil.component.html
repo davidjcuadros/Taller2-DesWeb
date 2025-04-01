@@ -1,10 +1,15 @@
 <div class="usuario-info">
-    <img [src]="usuario?.image" alt="Foto de {{usuario?.firstName}}" class="usuario-imagen">
-    <h2>Información del Usuario</h2>
-    <p>Nombre: {{usuario?.firstName}} {{usuario?.lastName}}</p>
-    <p>Username: {{usuario?.username}}</p>
-    <p>Edad: {{usuario?.age}}</p>
-    
-    
-    <app-mostrar-posts *ngIf="mostrarPosts" [userId]="usuario?.id"></app-mostrar-posts>
-  </div>
+    <ng-container *ngIf="usuario; else usuarioNoExiste">
+        <img [src]="usuario.image" alt="Foto de {{ usuario.firstName }}" class="usuario-imagen">
+        <h2>Información del Usuario</h2>
+        <p>Nombre: {{ usuario.firstName }} {{ usuario.lastName }}</p>
+        <p>Username: {{ usuario.username }}</p>
+        <p>Edad: {{ usuario.age }}</p>
+
+        <app-mostrar-posts *ngIf="mostrarPosts" [userId]="usuario.id"></app-mostrar-posts>
+    </ng-container>
+
+    <ng-template #usuarioNoExiste>
+        <p class="mensaje-error">El usuario no existe</p>
+    </ng-template>
+</div>

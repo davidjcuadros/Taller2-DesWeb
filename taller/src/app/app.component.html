@@ -2,8 +2,13 @@
 <div>
   <form #form="ngForm" (ngSubmit)="buscarUsuario()">
     <label for="username">Username:</label>
-    <input type="text" name="username" [(ngModel)]="txtUser">
+    <input type="text" name="username" [(ngModel)]="txtUser" required>
     <button type="submit">Buscar</button>
   </form>
+
   <app-mostrar-perfil [usuario]="usuario" *ngIf="usuario"></app-mostrar-perfil>
+
+  <div *ngIf="busquedaRealizada && !usuario" class="mensaje-error">
+    El usuario no existe
+  </div>
 </div>

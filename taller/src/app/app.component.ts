@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { User } from './models/User';
 
 @Component({
@@ -10,30 +9,40 @@ import { User } from './models/User';
 })
 export class AppComponent {
   title = 'Taller';
-  ROOT_URL= "https://dummyjson.com";
+  ROOT_URL = "https://dummyjson.com";
 
-  txtUser:string = "";
+  txtUser: string = "";
   usuario: User | null = null;
+  busquedaRealizada: boolean = false; // Nueva propiedad añadida
+  isLoading: boolean = false; // Opcional: para manejar estado de carga
+  errorMessage: string | null = null; // Opcional: para manejar mensajes de error
 
-  constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) {}
 
-  //user$: Observable<any> = new Observable();
-  buscarUsuario(){
+  buscarUsuario() {
+    if (!this.txtUser.trim()) return; // Validación básica
 
-    /**
-    this.user$ = this.http.get(`${this.ROOT_URL}users/1`);
-    this.user$.subscribe(userInfo => {
-      this.usuario = userInfo;
-    });
-    */
+    this.isLoading = true;
+    this.busquedaRealizada = false;
+    this.errorMessage = null;
+
     this.http.get(`${this.ROOT_URL}/users/filter?key=username&value=${this.txtUser}`).subscribe({
       next: (response: any) => {
-        if(response.users && response.users.length > 0){
+        if (response.users && response.users.length > 0) {
           this.usuario = response.users[0];
         } else {
           this.usuario = null;
         }
+        this.busquedaRealizada = true;
+      },
+      error: (err) => {
+        this.errorMessage = 'Error al buscar el usuario';
+        this.usuario = null;
+        this.busquedaRealizada = true;
+      },
+      complete: () => {
+        this.isLoading = false;
       }
-  })
+    });
   }
 }

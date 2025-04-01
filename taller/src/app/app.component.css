@@ -1,0 +1,197 @@
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.8rem;
+    margin: 0 auto 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+    display: block;
+    width: fit-content;
+    padding: 0 20px;
+}  
+
+body {
+    position: relative;
+}
+  
+/* Contenedor principal con efecto de vidrio (glassmorphism) */
+div {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 650px;
+    margin: 40px auto;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+  
+div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+}
+  
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+  
+/* Estilo de las etiquetas */
+label {
+    font-size: 1.1rem;
+    color: #34495e;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}   
+
+/* Estilo de los inputs con efecto moderno */
+input[type="text"] {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #dfe6e9;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+}
+  
+input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    background-color: white;
+}
+  
+/* Estilo del botón con gradiente y hover */
+button[type="submit"] {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    font-size: 1.1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+  
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+  
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+  
+/* Estilo para la sección del perfil - MODIFICADO */
+app-mostrar-perfil {
+    margin-top: 40px;
+    background: transparent; /* Cambiado de blanco a transparente */
+    padding: 0; /* Eliminado el padding por defecto */
+    border-radius: 15px;
+    transition: all 0.5s ease;
+    display: block; /* Asegura que es un bloque */
+}
+  
+/* Estilo del contenedor de información del usuario - MODIFICADO */
+app-mostrar-perfil .usuario-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.6s ease-out forwards;
+}
+  
+/* Estilo de la imagen de perfil con borde animado */
+app-mostrar-perfil img {
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+  
+app-mostrar-perfil img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+  
+/* Estilo del nombre */
+app-mostrar-perfil h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 700;
+}
+  
+/* Estilo de los detalles del perfil */
+app-mostrar-perfil p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin: 8px 0;
+    line-height: 1.6;
+}
+  
+/* Efectos de animación para la aparición */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+  
+/* Estilo para los badges o información destacada */
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 5px;
+}
+  
+/* Responsive design */
+@media (max-width: 768px) {
+    div {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    app-mostrar-perfil .usuario-info {
+        padding: 20px;
+    }
+}

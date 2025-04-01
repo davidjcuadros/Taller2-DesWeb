@@ -12,7 +12,7 @@ export class MostrarPerfilComponent {
   @Output() verPosts = new EventEmitter<number>();
   mostrarPosts = false;
   
-  verPostsUsuario() {
+  ngOnInit() {
     if (this.usuario) {
       this.mostrarPosts = true;
       this.verPosts.emit(this.usuario.id);

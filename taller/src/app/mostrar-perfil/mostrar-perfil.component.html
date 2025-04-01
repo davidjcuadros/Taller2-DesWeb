@@ -5,6 +5,6 @@
     <p>Username: {{usuario?.username}}</p>
     <p>Edad: {{usuario?.age}}</p>
     
-    <button (click)="verPostsUsuario()" class="btn-ver-posts">Ver Posts</button>
+    
     <app-mostrar-posts *ngIf="mostrarPosts" [userId]="usuario?.id"></app-mostrar-posts>
   </div>

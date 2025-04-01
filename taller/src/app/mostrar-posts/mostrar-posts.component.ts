@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Comentario } from '../models/Comentario';
 import { Post } from '../models/Post';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';  // Importa forkJoin
 
 @Component({
   selector: 'app-mostrar-posts',
@@ -16,9 +17,14 @@ export class MostrarPostsComponent {
   ROOT_URL = "https://dummyjson.com";
   
   constructor(private http: HttpClient) {}
-  
+
   ngOnInit() {
     if (this.userId) {
+      this.cargarPosts();
+    }
+  }
+  ngOnChanges(changes: SimpleChanges) {  // Aquí reaccionamos al cambio de @Input()
+    if (changes['userId'] && this.userId) {  // Si el userId ha cambiado
       this.cargarPosts();
     }
   }
@@ -27,26 +33,22 @@ export class MostrarPostsComponent {
     this.http.get<{posts: Post[]}>(`${this.ROOT_URL}/posts/user/${this.userId}`).subscribe({
       next: (response) => {
         this.posts = response.posts;
-        // Para cada post, cargamos sus comentarios
-        this.posts.forEach(post => {
-          this.cargarComentarios(post);
+        const comentariosRequests = this.posts.map(post =>
+          this.http.get<{comments: Comentario[]}>(`${this.ROOT_URL}/comments/post/${post.id}`)
+        );
+
+        forkJoin(comentariosRequests).subscribe({
+          next: (comentariosResponses) => {
+            // Combinando el post con sus comentarios
+            this.postsConComentarios = this.posts.map((post, index) => ({
+              post: post,
+              comentarios: comentariosResponses[index].comments
+            }));
+          },
+          error: (error) => console.error('Error al cargar los comentarios:', error)
         });
       },
-      error: (error) => console.error('Error al cargar posts:', error)
-    });
-  }
-  
-  cargarComentarios(post: Post) {
-    this.http.get<{comments: Comentario[]}>(`${this.ROOT_URL}/comments/post/${post.id}`).subscribe({
-      next: (response) => {
-        // Agregamos el post junto con sus comentarios a nuestro array
-        this.postsConComentarios.push({
-          post: post,
-          comentarios: response.comments
-        });
-      },
-      error: (error) => console.error(`Error al cargar comentarios del post ${post.id}:`, error)
+      error: (error) => console.error('Error al cargar los posts:', error)
     });
   }
 }
-
